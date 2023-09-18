@@ -69,7 +69,11 @@ fn dispatch_input(ctx: nc.Context, n: nc.Plane) !void {
     while (true) {
         var nivec = try ctx.getvec_nblock(&input_buffer);
         if (nivec.len == 0) break;
-        for (nivec) |*ni| try handle_input_event(n, ni);
+        for (nivec) |*ni| {
+            try handle_input_event(n, ni);
+            if (ni.id == nc.key.RESIZE)
+                try resize(ctx, n);
+        }
     }
 }
 
@@ -86,6 +90,11 @@ fn handle_input_event(n: nc.Plane, ni: *nc.Input) !void {
     }) catch {};
     if (key == 'q')
         return error.Quit;
+}
+
+fn resize(ctx: nc.Context, n: nc.Plane) !void {
+    const parent = ctx.stdplane();
+    return n.resize_simple(parent.dim_y(), parent.dim_x());
 }
 
 const JitterTest = struct {
