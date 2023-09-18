@@ -1,0 +1,11 @@
+.{
+    .name = "ncinputtest",
+    .version = "0.0.1",
+
+    .dependencies = .{
+        .notcurses = .{
+            .url = "https://github.com/neurocyte/notcurses-zig/archive/f3d9875a3df2e4ba0b924551fec5c67652368abb.tar.gz",
+            .hash = "1220cf3a9d4f93da64d735d9cbcb757cd6e4768fea123cdc5a101e6dd9ba0ca359eb",
+        },
+    },
+}
