@@ -79,9 +79,11 @@ fn dispatch_input(ctx: nc.Context, n: nc.Plane) !void {
 
 fn handle_input_event(n: nc.Plane, ni: *nc.Input) !void {
     const key = if (std.meta.trait.hasField("eff_text")(nc.Input)) ni.eff_text[0] else ni.id;
-    _ = n.print("\n {s} {s} mods:{d} y:{d} x:{d} ypx:{d} xpx:{d}", .{
+    _ = n.print("\n {s} {s} code:{d} ecg:{d} mods:{d} y:{d} x:{d} ypx:{d} xpx:{d}", .{
         nc.typeToString(ni.evtype),
         nc.key_string(ni),
+        ni.id,
+        if (std.meta.trait.hasField("eff_text")(nc.Input)) ni.eff_text[0] else ni.id,
         ni.modifiers,
         ni.y,
         ni.x,
